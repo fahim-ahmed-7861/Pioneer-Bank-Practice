@@ -115,18 +115,34 @@
 
 //deposit
 
+
+isDigit=(c)=>(c>='0' && c <= '9');
+
+
+checkforgarbage=(value)=>
+{
+  for(var i=0; i<value.length; i++)
+   {
+       if(isDigit(value[i])==false)
+       {
+           return false;
+
+       }
+   }
+
+   return true;
+}
+
      document.getElementById('adddeposit').addEventListener('click',function()
      {
      
 
          let amount=document.getElementById('depositamount').value;
    
+         document.getElementById('depositamount').value="";
+
+         if(checkforgarbage(amount)){
         let depositNum=parseFloat(amount);
-
-       
-
-
-       document.getElementById('depositamount').value="";
 
 
        if(depositNum>0){
@@ -134,6 +150,7 @@
 
        updateSpanText('balance',depositNum);
        }
+    }
 
 
         
@@ -146,6 +163,12 @@
      {
 
         let withdrawAmount=document.getElementById('withdrawAmount').value;
+
+
+
+
+         if(checkforgarbage(withdrawAmount)){
+    
 
         let withdrawvalue=parseFloat(withdrawAmount);
 
@@ -167,8 +190,12 @@
             document.getElementById('currentwithdraw').innerText=totalwithdraw;
 
 
+
+             
+
           }
          }
+        }
 
 
        document.getElementById('withdrawAmount').value="";
@@ -185,6 +212,7 @@
 
          let currentdeposit=document.getElementById(id).innerText;
 
+        
          let currentNum=parseFloat(currentdeposit);
 
          const total=currentNum+depositNum;
